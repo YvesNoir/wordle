@@ -222,6 +222,15 @@ export default function GamePage() {
         </button>
         <h1 className="text-white text-lg font-semibold">Wordle</h1>
         <div className="flex gap-3">
+          {session?.user?.username === 'sebastianfente' && (
+            <button
+              onClick={() => router.push('/admin')}
+              className="text-gray-400 hover:text-white"
+              title="Panel de Administración"
+            >
+              👑
+            </button>
+          )}
           <button
             onClick={() => router.push('/leaderboard')}
             className="text-gray-400 hover:text-white"
