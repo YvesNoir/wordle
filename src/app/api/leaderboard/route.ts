@@ -31,35 +31,35 @@ export async function GET() {
       }
     })
 
-    const leaderboard = users.map(user => {
+    const leaderboard = users.map((user: any) => {
       const games = user.games
       const gamesPlayed = games.length
-      const gamesWon = games.filter(game => game.won).length
+      const gamesWon = games.filter((game: any) => game.won).length
       const winRate = gamesPlayed > 0 ? (gamesWon / gamesPlayed) * 100 : 0
 
-      const wonGames = games.filter(game => game.won && game.endTime)
+      const wonGames = games.filter((game: any) => game.won && game.endTime)
       const averageAttempts = wonGames.length > 0
-        ? wonGames.reduce((sum, game) => sum + game.attempts, 0) / wonGames.length
+        ? wonGames.reduce((sum: number, game: any) => sum + game.attempts, 0) / wonGames.length
         : 0
 
-      const times = wonGames.map(game => {
+      const times = wonGames.map((game: any) => {
         if (game.startTime && game.endTime) {
           return Math.floor((new Date(game.endTime).getTime() - new Date(game.startTime).getTime()) / 1000)
         }
         return 0
-      }).filter(time => time > 0)
+      }).filter((time: number) => time > 0)
 
       const averageTime = times.length > 0
-        ? times.reduce((sum, time) => sum + time, 0) / times.length
+        ? times.reduce((sum: number, time: number) => sum + time, 0) / times.length
         : 0
       const bestTime = times.length > 0 ? Math.min(...times) : 0
 
       let currentStreak = 0
-      const sortedGames = games.sort((a, b) =>
+      const sortedGames = games.sort((a: any, b: any) =>
         new Date(b.startTime).getTime() - new Date(a.startTime).getTime()
       )
 
-      for (const game of sortedGames) {
+      for (const game of sortedGames as any[]) {
         if (game.won) {
           currentStreak++
         } else {
